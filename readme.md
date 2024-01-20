@@ -27,3 +27,10 @@ Features of the YelpCamp project:
   - campground
 - making home route
 - making makecampground route
+
+# 422. Campground: Seeding
+- created seeds directory
+  - made index.js
+    - seed 50 campground
+      - location
+      - description
