@@ -34,3 +34,9 @@ Features of the YelpCamp project:
     - seed 50 campground
       - location
       - description
+
+# 423. Campground: Index
+- created /campgrounds route
+- mkdir views/campground
+  - code index.js
+    - list all title
