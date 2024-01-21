@@ -77,6 +77,16 @@ app.put("/campgrounds/:id", async (req, res) => {
 	}
 });
 
+app.delete("/campgrounds/:id", async (req, res) => {
+	const { id } = req.params;
+	try {
+		await Campground.findByIdAndDelete(id);
+		res.redirect("/campgrounds");
+	} catch (error) {
+		res.send(`cant find camp`);
+	}
+});
+
 app.listen(3000, () => {
 	console.log("(Express) Serving on 3000.");
 });

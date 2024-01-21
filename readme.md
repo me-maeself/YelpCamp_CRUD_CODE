@@ -60,3 +60,12 @@ Features of the YelpCamp project:
   - const methodOverride = require("method-override");
   - app.use(methodOverride("_method"));
 - edit.ejs
+
+# 427. Campground: Delete
+- app.delete("/campgrounds/:id")
+
+# Final result:
+![Screenshot 2024-01-21 175332.png](./assets/Screenshot 2024-01-21 175332.png)
+![Screenshot 2024-01-21 175340.png](./assets/Screenshot 2024-01-21 175340.png)
+![Screenshot 2024-01-21 175346.png](./assets/Screenshot 2024-01-21 175346.png)
+![Screenshot 2024-01-21 175357.png](./assets/Screenshot 2024-01-21 175357.png)
