@@ -53,3 +53,10 @@ Features of the YelpCamp project:
 - get and post route handling on app.js
 - new.ejs
 - added navigation button on each page
+- app.use(express.urlencoded({ extended: true }));
+
+# 426. Campground: Edit and Update
+- npm i method-override
+  - const methodOverride = require("method-override");
+  - app.use(methodOverride("_method"));
+- edit.ejs
