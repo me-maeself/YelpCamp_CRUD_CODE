@@ -37,6 +37,14 @@ Features of the YelpCamp project:
 
 # 423. Campground: Index
 - created /campgrounds route
-- mkdir views/campground
+- mkdir views/campgrounds
   - code index.js
     - list all title
+
+![423.png](./assets/423.png)
+
+# 424. Campgrounds: Show
+- create show detailed page of a campground via campgrounds/:id
+  - edited app.js
+  - try and catch id
+  - created show.ejs
