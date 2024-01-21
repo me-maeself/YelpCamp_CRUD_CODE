@@ -48,3 +48,8 @@ Features of the YelpCamp project:
   - edited app.js
   - try and catch id
   - created show.ejs
+
+# 425. Campgrounds: New
+- get and post route handling on app.js
+- new.ejs
+- added navigation button on each page
