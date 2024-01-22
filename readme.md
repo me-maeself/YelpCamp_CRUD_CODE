@@ -133,9 +133,30 @@ Injection and boilerplate
 - footer sticky-bottom
 
 # 440. Img
-GET /photos/:id
-GET /photos
-GET /photos/random
-collections
-# 441
-# 442
+Need to populate the website with image API from unsplash
+
+```js
+const fetchPicture = async function () {
+	const picture = await fetch(
+		"https://api.unsplash.com/photos/random?client_id=QDysHD22BOxCA_pY5negmAAwa5wf_QEg-2JXhcZ0CsY&collections=957079"
+	)
+		//"https://api.unsplash.com/photos/random?client_id=&collections=ID"
+		.then((data) => {
+			return data.json();
+		})
+		.catch((e) => console.log(e));
+	return picture;
+};
+```
+
+# 441. Index
+...just bootstrap
+
+# 442. New Form
+...just bootstrap
+
+# 443. Edit Form
+...just bootstrap
+
+# 444. Show page
+...just bootstrap
