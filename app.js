@@ -89,6 +89,35 @@ app.delete("/campgrounds/:id", async (req, res) => {
 	}
 });
 
+app.get("/pic", (req, res) => {
+	let picture = {};
+
+	fetch(
+		"https://api.unsplash.com/photos/random?client_id=QDysHD22BOxCA_pY5negmAAwa5wf_QEg-2JXhcZ0CsY&collections=957079"
+	)
+		//"https://api.unsplash.com/photos/random?client_id=&collections=ID"
+		.then((data) => {
+			picture = data.json();
+			return picture;
+		})
+		.then((p) => {
+			res.redirect(p.urls.regular);
+		})
+		.catch((e) => console.log(e));
+
+	// /photos  -> photo.urls.regular
+	// {
+	// 	"urls": {
+	// 	   "raw": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9",
+	// 	   "full": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&q=80",
+	// 	   "regular": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&fit=crop&w=1080&q=80&fit=max",
+	// 	   "small": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&&fm=jpg&w=400&fit=max",
+	// 	   "thumb": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&w=200&fit=max"
+	// 	},
+	// 	// ... other photo fields
+	//   }
+});
+
 app.listen(3000, () => {
 	console.log("(Express) Serving on 3000.");
 });

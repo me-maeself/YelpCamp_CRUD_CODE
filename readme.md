@@ -1,12 +1,35 @@
 This is project is based on **Web Development BootCamp 2023** by **Colt Steele** in **Udemy**. Section 39: YelpCamp: Campgrounds CRUD.
 `21/01/2023 by **me-maeself**`
 ---
-TODO learn import export
-TODO learn path
+## Learn new import & export
+  `import {name as newName} from "..."`
+  `export const name = 'value`
+  `import newName from "..."`
+  `export default "value"`
 
-TODO Make api usage for Unsplash
-  Make unsplash acc
-  Read api description and limits
+## learn path
+  - create `jsconfig.json` file
+    - Map paths 
+    ```js
+    {
+      "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+          "@components/*" : ["components/*"],
+          "@style/*" : ["styles/*"],
+          "@lib" : ["lib/*"],
+        }
+      }
+    }
+    ```
+    - use it with @
+      - `@lib/*/*`
+
+<!-- TODO Make api usage for Unsplash -->
+  <!-- Make unsplash acc -->
+  <!-- Read api description and limits -->
+  try getting one request
+
   Look at the db schema
   Make a seed function
     Use api limit based on the criterion

@@ -16,15 +16,36 @@ async function main() {
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
-	await Campground.deleteMany({});
-	for (let i = 0; i < 50; i++) {
+	// await Campground.deleteMany({});
+
+	for (let i = 0; i < 40; i++) {
 		const random1000 = Math.floor(Math.random() * 1000);
+		const imageURL = await fetchPicture();
+		const prc = Math.floor(Math.random() * 20) + 10;
 		const camp = new Campground({
 			location: `${cities[random1000].city}, ${cities[random1000].state}`,
 			title: `${sample(descriptors)} ${sample(places)}`,
+			image: imageURL.urls.regular,
+			description:
+				// cSpell:disable
+				"Lorem ipsum dolor, sit amet consectetur adipisicing elit. Itaque sunt quidem totam dolorem blanditiis! Delectus rerum numquam esse excepturi tenetur laboriosam, impedit aspernatur incidunt, suscipit dolorem molestias nobis enim cum.",
+			// cSpell:enable
+			price: prc,
 		});
 		await camp.save();
 	}
+};
+
+const fetchPicture = async function () {
+	const picture = await fetch(
+		"https://api.unsplash.com/photos/random?client_id=QDysHD22BOxCA_pY5negmAAwa5wf_QEg-2JXhcZ0CsY&collections=957079"
+	)
+		//"https://api.unsplash.com/photos/random?client_id=&collections=ID"
+		.then((data) => {
+			return data.json();
+		})
+		.catch((e) => console.log(e));
+	return picture;
 };
 
 seedDB().then(() => {
