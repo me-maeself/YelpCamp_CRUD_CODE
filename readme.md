@@ -4,6 +4,14 @@ This is project is based on **Web Development BootCamp 2023** by **Colt Steele**
 TODO learn import export
 TODO learn path
 
+TODO Make api usage for Unsplash
+  Make unsplash acc
+  Read api description and limits
+  Look at the db schema
+  Make a seed function
+    Use api limit based on the criterion
+      First trial
+
 
 # Overview
 Features of the YelpCamp project:
@@ -69,3 +77,42 @@ Features of the YelpCamp project:
 ![Screenshot 2024-01-21 175340.png](./assets/Screenshot 2024-01-21 175340.png)
 ![Screenshot 2024-01-21 175346.png](./assets/Screenshot 2024-01-21 175346.png)
 ![Screenshot 2024-01-21 175357.png](./assets/Screenshot 2024-01-21 175357.png)
+
+---
+Beginning of Part 2. Section 41: YelpCamp: Adding Basic Styles.
+
+# 436. New EJS tools for layout
+Injection and boilerplate
+- ejs-mate
+  - layout
+    - Boilerplate
+```html
+<!-- views/layouts/boilerplate.ejs -->
+<body>
+		<%- body %>
+</body>
+
+<!-- All other files -->
+<% layout('layouts/boilerplate') %>
+...body...
+```
+
+# 437. Bootstrap CDN
+- Check documentation
+- Adding bootstrap to boilerplate
+  
+# 438. Navbar
+- Adding navbar via partials
+  
+# 439. Footer
+- Adding footer via partials
+- Making body 100vh and flex-box
+- footer sticky-bottom
+
+# 440. Img
+GET /photos/:id
+GET /photos
+GET /photos/random
+collections
+# 441
+# 442
