@@ -179,4 +179,19 @@ end of part 2
 ## 455. Basic error handling
 - app.use(err, req, res, next){res.send(errMsg)}
 
-## More Error
+## 466. Defining ExpressError Class
+- Used for throwing error with our custom touch. Extending Error Class.
+
+## 457. More Error
+- Error pass the form (Error caused by Bad HTTP request)
+
+## 458. Defining Error template
+- error.ejs
+
+## 459. Joi Server side Schema validation
+- Using Joi module
+
+## 460. Joi Validation Middleware
+- schema saved in schemas.ejs
+- function of validation declared on top of app.js
+
