@@ -169,3 +169,12 @@ end of part 2
 - Server side error handling
 - Send back error from server to client
 - Joi
+
+## 454. Client side form validation (Bootstrap)
+- use required `properties` in `<form>` tag
+- Use Bootstrap validation
+  - invalidate
+  - js script
+
+## 455. Basic error handling
+- app.use(err, req, res, next){res.send(errMsg)}

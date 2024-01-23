@@ -45,10 +45,14 @@ app.get("/campgrounds/new", (req, res) => {
 	res.render("campgrounds/new");
 });
 
-app.post("/campgrounds", async (req, res) => {
-	const campground = new Campground(req.body.campground);
-	await campground.save();
-	res.redirect(`campgrounds/${campground._id}`);
+app.post("/campgrounds", async (req, res, next) => {
+	try {
+		const campground = new Campground(req.body.campground);
+		await campground.save();
+		res.redirect(`campgrounds/${campground._id}`);
+	} catch (e) {
+		next(e);
+	}
 });
 
 app.get("/campgrounds/:id", async (req, res) => {
@@ -104,18 +108,10 @@ app.get("/pic", (req, res) => {
 			res.redirect(p.urls.regular);
 		})
 		.catch((e) => console.log(e));
+});
 
-	// /photos  -> photo.urls.regular
-	// {
-	// 	"urls": {
-	// 	   "raw": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9",
-	// 	   "full": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&q=80",
-	// 	   "regular": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&fit=crop&w=1080&q=80&fit=max",
-	// 	   "small": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&&fm=jpg&w=400&fit=max",
-	// 	   "thumb": "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9&fm=jpg&w=200&fit=max"
-	// 	},
-	// 	// ... other photo fields
-	//   }
+app.use((err, req, res, next) => {
+	res.send("Oh boy, something went wrong!");
 });
 
 app.listen(3000, () => {
