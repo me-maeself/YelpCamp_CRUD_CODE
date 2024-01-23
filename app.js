@@ -2,9 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const Campground = require("./models/campground");
+const catchAsync = require("./utils/catchAsync");
+const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const campground = require("./models/campground");
 
 main()
 	.then(() => {
@@ -45,53 +46,60 @@ app.get("/campgrounds/new", (req, res) => {
 	res.render("campgrounds/new");
 });
 
-app.post("/campgrounds", async (req, res, next) => {
-	try {
+app.post(
+	"/campgrounds",
+	catchAsync(async (req, res, next) => {
 		const campground = new Campground(req.body.campground);
 		await campground.save();
 		res.redirect(`campgrounds/${campground._id}`);
-	} catch (e) {
-		next(e);
-	}
-});
+	})
+);
 
-app.get("/campgrounds/:id", async (req, res) => {
-	const { id } = req.params;
-	try {
+app.get(
+	"/campgrounds/:id",
+	catchAsync(async (req, res) => {
+		const { id } = req.params;
 		const campground = await Campground.findById(id);
 		res.render("campgrounds/show", { campground });
-	} catch (e) {
-		res.send(`cant find camp`);
-	}
-});
+	})
+);
 
-app.get("/campgrounds/:id/edit", async (req, res) => {
-	const { id } = req.params;
-	const campground = await Campground.findById(id);
-	res.render("campgrounds/edit", { campground });
-});
+app.get(
+	"/campgrounds/:id/edit",
+	catchAsync(async (req, res) => {
+		const { id } = req.params;
+		const campground = await Campground.findById(id);
+		res.render("campgrounds/edit", { campground });
+	})
+);
 
-app.put("/campgrounds/:id", async (req, res) => {
-	const { id } = req.params;
-	try {
-		const campground = await Campground.findByIdAndUpdate(id, {
-			...req.body.campground,
-		});
-		res.redirect(`/campgrounds/${campground._id}`);
-	} catch (error) {
-		res.send(`cant find camp`);
-	}
-});
+app.put(
+	"/campgrounds/:id",
+	catchAsync(async (req, res) => {
+		const { id } = req.params;
+		try {
+			const campground = await Campground.findByIdAndUpdate(id, {
+				...req.body.campground,
+			});
+			res.redirect(`/campgrounds/${campground._id}`);
+		} catch (error) {
+			res.send(`cant find camp`);
+		}
+	})
+);
 
-app.delete("/campgrounds/:id", async (req, res) => {
-	const { id } = req.params;
-	try {
-		await Campground.findByIdAndDelete(id);
-		res.redirect("/campgrounds");
-	} catch (error) {
-		res.send(`cant find camp`);
-	}
-});
+app.delete(
+	"/campgrounds/:id",
+	catchAsync(async (req, res) => {
+		const { id } = req.params;
+		try {
+			await Campground.findByIdAndDelete(id);
+			res.redirect("/campgrounds");
+		} catch (error) {
+			res.send(`cant find camp`);
+		}
+	})
+);
 
 app.get("/pic", (req, res) => {
 	let picture = {};
@@ -110,8 +118,16 @@ app.get("/pic", (req, res) => {
 		.catch((e) => console.log(e));
 });
 
+app.all("*", (req, res, next) => {
+	return next(new ExpressError("Page not found", 404));
+});
+
 app.use((err, req, res, next) => {
-	res.send("Oh boy, something went wrong!");
+	const {
+		statusCode = 500,
+		message = "Error: Something unexpected happen!",
+	} = err;
+	res.status(statusCode).send(message);
 });
 
 app.listen(3000, () => {
