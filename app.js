@@ -74,10 +74,6 @@ app.post(
 	"/campgrounds",
 	validateCampground,
 	catchAsync(async (req, res, next) => {
-		// if (!req.body.campground) {
-		// 	throw new ExpressError("Invalid Campground Data", 400);
-		// }
-
 		const campground = new Campground(req.body.campground);
 		await campground.save();
 		res.redirect(`campgrounds/${campground._id}`);
@@ -88,7 +84,7 @@ app.get(
 	"/campgrounds/:id",
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
-		const campground = await Campground.findById(id);
+		const campground = await Campground.findById(id).populate("reviews");
 		res.render("campgrounds/show", { campground });
 	})
 );
@@ -109,6 +105,18 @@ app.post(
 		await review.save();
 		await campground.save();
 
+		res.redirect(`/campgrounds/${id}`);
+	})
+);
+
+app.delete(
+	"/campgrounds/:id/reviews/:reviewId",
+	catchAsync(async (req, res) => {
+		const { id, reviewId } = req.params;
+		await Campground.findByIdAndUpdate(id, {
+			$pull: { reviews: reviewId },
+		});
+		await Review.findByIdAndDelete(reviewId);
 		res.redirect(`/campgrounds/${id}`);
 	})
 );
@@ -146,6 +154,7 @@ app.delete(
 			await Campground.findByIdAndDelete(id);
 			res.redirect("/campgrounds");
 		} catch (error) {
+			console.log(error);
 			res.send(`cant find camp`);
 		}
 	})

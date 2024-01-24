@@ -202,8 +202,30 @@ Making review feature to the yelp camp app.
 ## 479. Adding the Review Form
 - Adding form in `show.ejs`
 ## 480. Creating Review
+- "/campgrounds/:id/reviews"
+- pushing review inside campground
 ## 481. Validating Review
+- Making reviewSchema
+- Making validateReview
 ## 482. Displaying Review
 ## 483. Styling Review
 ## 484. Deleting Review
+```js
+app.delete(
+	"/campgrounds/:id/reviews/:reviewId",
+	catchAsync(async (req, res) => {
+		const { id, reviewId } = req.params;
+		await Campground.findByIdAndUpdate(id, {
+			$pull: { reviews: reviewId },
+		});
+		await Review.findByIdAndDelete(reviewId);
+		res.redirect(`/campgrounds/${id}`);
+	})
+);
+```
+
 ## 485. Campground Delete Middleware
+- Mongoose middleware:
+  - Document middleware
+  - Query middleware
+    - What used in post inside campground.js
