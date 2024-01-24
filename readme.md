@@ -195,3 +195,13 @@ end of part 2
 - schema saved in schemas.ejs
 - function of validation declared on top of app.js
 
+# Part 4 -> Adding the Review Model.
+Making review feature to the yelp camp app.
+## 478. Defining the review model
+## 479. Adding the Review Form
+## 480. Creating Review
+## 481. Validating Review
+## 482. Displaying Review
+## 483. Styling Review
+## 484. Deleting Review
+## 485. Campground Delete Middleware
