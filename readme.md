@@ -198,7 +198,9 @@ end of part 2
 # Part 4 -> Adding the Review Model.
 Making review feature to the yelp camp app.
 ## 478. Defining the review model
+- Making <Model> `review.js` 
 ## 479. Adding the Review Form
+- Adding form in `show.ejs`
 ## 480. Creating Review
 ## 481. Validating Review
 ## 482. Displaying Review
