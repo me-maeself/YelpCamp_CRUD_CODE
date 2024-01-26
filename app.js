@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 // Async and Error handler
 const catchAsync = require("./utils/catchAsync");
@@ -42,27 +44,37 @@ app.set("view engine", "ejs");
 // HTTP packages
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+// Public
+app.use(express.static(path.join(__dirname, "public")));
+// Session (cookies connect.sid)
+const sessionConfig = {
+	secret: "secretCode",
+	resave: "false",
+	saveUninitialized: "true",
+	// Should have been mongoDB as the store {store:...}
+	cookie: {
+		httpOnly: true,
+		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+		maxAge: 1000 * 60 * 60 * 24 * 7,
+	},
+};
+app.use(session(sessionConfig));
+// Flash
+app.use(flash());
+app.use((req, res, next) => {
+	res.locals.success = req.flash("success");
+	res.locals.error = req.flash("error");
+	return next();
+});
+
 // Routing
 app.use("/campgrounds", campgrounds);
 app.use("/campgrounds/:id/reviews", reviews);
-// Public
-app.use(express.static(path.join(__dirname, "public")));
 
 // Home
 app.get("/", (req, res) => {
 	res.render("home");
 });
-
-const validateCampground = (req, res, next) => {
-	const { error } = campgroundSchema.validate(req.body);
-	if (error) {
-		const msg = error.details.map((el) => el.message).join(",");
-		console.log(msg);
-		throw new ExpressError(msg, 400);
-	} else {
-		return next();
-	}
-};
 
 // Some testing and API route
 // app.get("/makecampground", async (req, res) => {

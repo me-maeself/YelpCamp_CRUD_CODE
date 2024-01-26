@@ -242,6 +242,46 @@ Moving Campground route to routes/reviews.js
 ## 502. Serving Static Assets
 - app.use(express.static("public"));
 ## 503. Configuring Session
+```js
+const sessionConfig = {
+	secret: "secretCode",
+	resave: "false",
+	saveUninitialized: "true",
+	// Should have been mongoDB as the store {store:...}
+	cookie: {
+		httpOnly: true,
+		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+		maxAge: 1000 * 60 * 60 * 24 * 7,
+	},
+};
+app.use(session(sessionConfig));
+```
 ## 504. Configuring Flash
+- npm i connect-flash
+- made partials flash.ejs
+- include partials in boilerplate.ejs
+- edit app.js as bellow
+
+```js
+app.use(flash());
+app.use((req, res, next) => {
+	res.locals.success = req.flash("success");
+	res.locals.error = req.flash("error");
+	return next();
+});
+```
+
+- adding flash to all post, put, delete
 ## 505. Flash Success Partials
+...look above
 ## 506. Flash Errors Partials
+- adding duplicate for error in flash.ejs
+- error handling in campgrounds id as bellow
+  - using flash error
+  - and redirect
+```js
+if (!campground) {
+			req.flash("error", "Cannot find that campground!");
+			return res.redirect("/campgrounds");
+		}
+```
