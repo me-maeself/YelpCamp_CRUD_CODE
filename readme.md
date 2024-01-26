@@ -229,3 +229,19 @@ app.delete(
   - Document middleware
   - Query middleware
     - What used in post inside campground.js
+
+# Start of section 5: Breaking Routes
+
+Important to remember:
+- `const router = express.Router({ mergeParams: true });`
+
+## 500. Campground Routes
+Moving Campground route to routes/campgrounds.js
+## 501. Review Routes
+Moving Campground route to routes/reviews.js
+## 502. Serving Static Assets
+- app.use(express.static("public"));
+## 503. Configuring Session
+## 504. Configuring Flash
+## 505. Flash Success Partials
+## 506. Flash Errors Partials
