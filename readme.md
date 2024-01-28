@@ -285,3 +285,19 @@ if (!campground) {
 			return res.redirect("/campgrounds");
 		}
 ```
+
+# Part 6; Section 51; Authentication
+
+## 520. Intro to Passport
+## 521. User MOdel
+## 522. Config Passport
+## 523. Register Form
+## 524. Register Router Logic
+## 525. Login Routes
+## 526. isLoggedIn Middleware
+## 527. (Note: Fixing Logout)
+## 528. Adding Logout
+## 529. currentUser Helper
+## 530. Fixing Register Route
+## 531. (Note: Passport.js Update)
+## 532. ReturnTo Behavior
