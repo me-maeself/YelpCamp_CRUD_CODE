@@ -48,6 +48,33 @@ const fetchPicture = async function () {
 	return picture;
 };
 
+// Some testing and API route
+// app.get("/makecampground", async (req, res) => {
+// 	const camp = new Campground({
+// 		title: "My Backyard",
+// 		description: "Cheap Camping",
+// 	});
+// 	await camp.save();
+// 	res.send(camp);
+// });
+
+// app.get("/pic", (req, res) => {
+// 	let picture = {};
+
+// 	fetch(
+// 		"https://api.unsplash.com/photos/random?client_id=QDysHD22BOxCA_pY5negmAAwa5wf_QEg-2JXhcZ0CsY&collections=957079"
+// 	)
+// 		//"https://api.unsplash.com/photos/random?client_id=&collections=ID"
+// 		.then((data) => {
+// 			picture = data.json();
+// 			return picture;
+// 		})
+// 		.then((p) => {
+// 			res.redirect(p.urls.regular);
+// 		})
+// 		.catch((e) => console.log(e));
+// });
+
 seedDB().then(() => {
 	mongoose.connection.close();
 });
