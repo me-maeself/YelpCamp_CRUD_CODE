@@ -291,8 +291,6 @@ if (!campground) {
 - npm i passport passport-local passport-local-mongoose
 
 ## 521. User Model
-
-
 ## 522. Config Passport
 ## 523. Register Form
 ## 524. Register Router Logic
@@ -304,3 +302,11 @@ if (!campground) {
 ## 530. Fixing Register Route
 ## 531. (Note: Passport.js Update)
 ## 532. ReturnTo Behavior
+
+# Part 7: Basic authorization
+## 533. Adding an Author to Campground
+## 534. Showing and Hiding Delete / Edit
+## 535. Campgrounds Permission
+## 536. Authorization Middleware
+## 537. Reviews Permission
+## 538. More Reviews Authorization

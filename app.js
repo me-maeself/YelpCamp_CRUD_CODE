@@ -24,8 +24,9 @@ const Review = require("./models/review.js");
 const User = require("./models/user.js");
 
 // Routes
-const campgrounds = require("./routes/campgrounds.js");
-const reviews = require("./routes/reviews.js");
+const userRoutes = require("./routes/user.js");
+const campgroundRoutes = require("./routes/campgrounds.js");
+const reviewRoutes = require("./routes/reviews.js");
 
 // Mongoose Database Connection
 main()
@@ -62,13 +63,10 @@ const sessionConfig = {
 	},
 };
 app.use(session(sessionConfig));
+
 // Flash
 app.use(flash());
-app.use((req, res, next) => {
-	res.locals.success = req.flash("success");
-	res.locals.error = req.flash("error");
-	return next();
-});
+
 // Auth
 app.use(passport.initialize());
 app.use(passport.session());
@@ -76,9 +74,18 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// All HTML
+app.use((req, res, next) => {
+	res.locals.currentUser = req.user;
+	res.locals.success = req.flash("success");
+	res.locals.error = req.flash("error");
+	return next();
+});
+
 // Routing
-app.use("/campgrounds", campgrounds);
-app.use("/campgrounds/:id/reviews", reviews);
+app.use("/", userRoutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/reviews", reviewRoutes);
 
 // Home
 app.get("/", (req, res) => {
