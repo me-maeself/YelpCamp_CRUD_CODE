@@ -92,13 +92,6 @@ app.get("/", (req, res) => {
 	res.render("home");
 });
 
-app.get("/fakeUser", async (req, res) => {
-	const user = new User({ email: "me@maeself.com", username: "me.maeself" });
-	const newUser = await User.register(user, "monkey");
-	// in user: {_id, email, username, salt, hash, __v}
-	res.send(newUser);
-});
-
 // 404 not found
 app.all("*", (req, res, next) => {
 	return next(new ExpressError("Page not found", 404));

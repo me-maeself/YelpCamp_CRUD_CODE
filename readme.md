@@ -304,6 +304,7 @@ if (!campground) {
 ## 532. ReturnTo Behavior
 
 # Part 7: Basic authorization
+
 ## 533. Adding an Author to Campground
 ## 534. Showing and Hiding Delete / Edit
 ## 535. Campgrounds Permission
