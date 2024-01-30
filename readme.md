@@ -288,7 +288,11 @@ if (!campground) {
 
 # Part 6; Section 51; Authentication
 ## 520. Intro to Passport
-## 521. User MOdel
+- npm i passport passport-local passport-local-mongoose
+
+## 521. User Model
+
+
 ## 522. Config Passport
 ## 523. Register Form
 ## 524. Register Router Logic

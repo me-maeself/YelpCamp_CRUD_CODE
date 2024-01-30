@@ -8,6 +8,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
 // Async and Error handler
 const catchAsync = require("./utils/catchAsync");
@@ -19,6 +21,7 @@ const { campgroundSchema, reviewSchema } = require("./schemas.js");
 // Models
 const Campground = require("./models/campground");
 const Review = require("./models/review.js");
+const User = require("./models/user.js");
 
 // Routes
 const campgrounds = require("./routes/campgrounds.js");
@@ -66,6 +69,12 @@ app.use((req, res, next) => {
 	res.locals.error = req.flash("error");
 	return next();
 });
+// Auth
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Routing
 app.use("/campgrounds", campgrounds);
@@ -74,6 +83,13 @@ app.use("/campgrounds/:id/reviews", reviews);
 // Home
 app.get("/", (req, res) => {
 	res.render("home");
+});
+
+app.get("/fakeUser", async (req, res) => {
+	const user = new User({ email: "me@maeself.com", username: "me.maeself" });
+	const newUser = await User.register(user, "monkey");
+	// in user: {_id, email, username, salt, hash, __v}
+	res.send(newUser);
 });
 
 // 404 not found
