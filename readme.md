@@ -333,7 +333,50 @@ From previous code, we gonna make those authorization codes that protect our rou
 - Fixing all the import export.
 
 ## 537. Reviews Permission
+The Goals of the modification we gonna make in reviews:
+- User need to login to:
+  - see the forms
+  - see the review
+- Reviews is associated to the author
 
+Steps:
+- Hide the ejs elements if user is not logged in.
+- Protect and associating the post route by editing:
+  - Adding isLoggedIn middleware
+  - connecting data association review and user
+  - 
 ## 538. More Reviews Authorization
+- Nest populate in `campground.js` route
+```js
+.populate({
+  path: "reviews",
+  populate: {
+    path: "Author"
+  }
+})
+```
+note: 
+- If we want to scale up, we might just want to store username in the reviews, so that we don't need to populate full User object.
+- It also would be smarter to limit the amount of review that gonna be loaded.
 
-- Connect User & Reviews Models.
+Next TODO:
+- edit show.ejs
+  - show author in review
+  - hide delete if not reviewAuthor
+- edit middleware.js
+  - isReviewAuthor middleware
+- edit review route
+  - delete route
+    - add isReviewAuthor middleware
+
+# Conclusion so far... 
+This is the bread and butter of typical web app. (route, models, Auth)
+- Defining a models
+- Connecting models
+- Authorization
+
+The rest is special features such as:
+- email subs
+- Chat
+- frameworks
+- etc....

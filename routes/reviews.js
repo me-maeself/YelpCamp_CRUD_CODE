@@ -7,18 +7,24 @@ const ExpressError = require("../utils/ExpressError");
 const Review = require("../models/review.js");
 const Campground = require("../models/campground.js");
 
-const { validateReview } = require("../middleware.js");
+const {
+	validateReview,
+	isLoggedIn,
+	isAuthor,
+	isReviewAuthor,
+} = require("../middleware.js");
 
 router.post(
 	"/",
+	isLoggedIn,
 	validateReview,
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
 		const campground = await Campground.findById(id);
 
 		const review = new Review(req.body.review);
-		// req.body.review.rating
-		// req.body.review.body
+		// Inside review.body -> req.body.review.rating & req.body.review.body
+		review.author = req.user._id;
 		campground.reviews.push(review);
 
 		await review.save();
@@ -31,6 +37,8 @@ router.post(
 
 router.delete(
 	"/:reviewId",
+	isLoggedIn,
+	isReviewAuthor,
 	catchAsync(async (req, res) => {
 		const { id, reviewId } = req.params;
 		await Campground.findByIdAndUpdate(id, {
