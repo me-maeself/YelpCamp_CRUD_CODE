@@ -306,8 +306,34 @@ if (!campground) {
 # Part 7: Basic authorization
 
 ## 533. Adding an Author to Campground
+- Connecting **Campgrounds** & **Reviews** Models.
+  - adding author in campgrounds Schema
+    - re seeding all the campgrounds with added {author}
+  - populate author in `campgrounds.js` POST /:id
+  - adding new label for in `show.ejs`
+  - adding `author` in `campgrounds.js` POST /new 
+
 ## 534. Showing and Hiding Delete / Edit
+Here is the place where Authorization comes in place.
+- Don't show the button when I'm not the author
+  - Add conditional in ejs.
+    - If: (currentUser exist and currentUser equals to author)
+      - show the delete and edit button
+
 ## 535. Campgrounds Permission
+- Protecting delete and edit route (put, delete). Also the edit form access.
+  - By adding additional steps:
+    - Find the campground with id
+    - if the author NOT same as the current user:
+      - redirect and flash error "Don't have permission"
+- For the form access, we just add the find and match logic.
 ## 536. Authorization Middleware
+From previous code, we gonna make those authorization codes that protect our route into a middleware function.
+- Both Campgrounds and Review middleware into middleware.js
+- Fixing all the import export.
+
 ## 537. Reviews Permission
+
 ## 538. More Reviews Authorization
+
+- Connect User & Reviews Models.

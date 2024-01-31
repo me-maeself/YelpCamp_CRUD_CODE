@@ -7,18 +7,7 @@ const ExpressError = require("../utils/ExpressError");
 const Review = require("../models/review.js");
 const Campground = require("../models/campground.js");
 
-const { reviewSchema } = require("../schemas.js");
-
-const validateReview = (req, res, next) => {
-	const { error } = reviewSchema.validate(req.body);
-	if (error) {
-		const msg = error.details.map((el) => el.message).join(",");
-		console.log(msg);
-		throw new ExpressError(msg, 400);
-	} else {
-		return next();
-	}
-};
+const { validateReview } = require("../middleware.js");
 
 router.post(
 	"/",
